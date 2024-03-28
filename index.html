@@ -36,7 +36,9 @@
 
                 const totalGForce = Math.sqrt(gForceX ** 2 + gForceY ** 2 + gForceZ ** 2);
 
-                document.getElementById("totalGForce").textContent = totalGForce.toFixed(2);
+                setTimeout(() => {
+                    document.getElementById("totalGForce").textContent = totalGForce.toFixed(1);
+                }, 200);
             });
         } else {
             document.getElementById("unsupported").style.display = 'block';
