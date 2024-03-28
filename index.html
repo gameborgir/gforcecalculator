@@ -18,6 +18,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         p {
@@ -33,10 +34,8 @@
                 const gForceY = acceleration.y / 9.8;
                 const gForceZ = acceleration.z / 9.8;
 
-                // Calculate magnitude of total acceleration vector
                 const totalGForce = Math.sqrt(gForceX ** 2 + gForceY ** 2 + gForceZ ** 2);
 
-                // Display the combined g-force
                 document.getElementById("totalGForce").textContent = totalGForce.toFixed(2);
             });
         } else {
