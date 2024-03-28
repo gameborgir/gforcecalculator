@@ -29,25 +29,19 @@
         }
     </style>
     <script>
-        let gForceUpdateInterval;
-
-        function updateGForce(event) {
-            const acceleration = event.accelerationIncludingGravity;
-            const gForceX = acceleration.x / 9.8;
-            const gForceY = acceleration.y / 9.8;
-            const gForceZ = acceleration.z / 9.8;
-
-            const totalGForce = Math.sqrt(gForceX ** 2 + gForceY ** 2 + gForceZ ** 2);
-
-            document.getElementById("totalGForce").textContent = totalGForce.toFixed(1);
-        }
-
         if ("DeviceMotionEvent" in window) {
-            window.addEventListener("devicemotion", updateGForce);
-            gForceUpdateInterval = setInterval(() => {
-                window.removeEventListener("devicemotion", updateGForce);
-                window.addEventListener("devicemotion", updateGForce);
-            }, 250); // Update every 0.25 seconds
+            window.addEventListener("devicemotion", (event) => {
+                const acceleration = event.accelerationIncludingGravity;
+                const gForceX = acceleration.x / 9.8;
+                const gForceY = acceleration.y / 9.8;
+                const gForceZ = acceleration.z / 9.8;
+
+                const totalGForce = Math.sqrt(gForceX ** 2 + gForceY ** 2 + gForceZ ** 2);
+
+                setTimeout(() => {
+                    document.getElementById("totalGForce").textContent = totalGForce.toFixed(1);
+                }, 450);
+            });
         } else {
             document.getElementById("unsupported").style.display = 'block';
         }
