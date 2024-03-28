@@ -25,6 +25,28 @@
             margin: 10px;
             font-size: 7.5em;
         }
+
+        .arrow {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border: 2px solid white;
+            border-left: none;
+            border-bottom: none;
+            transform: rotate(-45deg);
+        }
+
+        .arrow::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-right: 20px solid white;
+            transform: translateX(-50%);
+        }
     </style>
     <script>
         if ("DeviceMotionEvent" in window) {
@@ -38,15 +60,23 @@
 
                 setTimeout(() => {
                     document.getElementById("totalGForce").textContent = totalGForce.toFixed(1);
+                    updateArrow(gForceX, gForceY);
                 }, 450);
             });
         } else {
             document.getElementById("unsupported").style.display = 'block';
         }
+
+        function updateArrow(gForceX, gForceY) {
+            const angle = Math.atan2(gForceY, gForceX);
+            const arrow = document.getElementById("arrow");
+            arrow.style.transform = `rotate(${angle}rad)`;
+        }
     </script>
 </head>
 
 <body>
+    <div class="arrow" id="arrow"></div>
     <p><span id="totalGForce">0</span> G</p>
     <p id="unsupported" style="display:none;color:red;">DeviceMotionEvent is not supported by your browser.</p>
 </body>
