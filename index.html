@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G-Force Calculator</title>
+<script>
+  // Check if the DeviceMotionEvent is supported by the browser
+  if ("DeviceMotionEvent" in window) {
+    // Add an event listener to listen to device motion events
+    window.addEventListener("devicemotion", (event) => {
+      // Access acceleration including gravity from the event object
+      const acceleration = event.accelerationIncludingGravity;
+
+      // Calculate G-force for each axis; g-force = acceleration / 9.8 m/s^2
+      const gForceX = acceleration.x / 9.8;
+      const gForceY = acceleration.y / 9.8;
+      const gForceZ = acceleration.z / 9.8;
+
+      // Display the G-force values on the webpage
+      document.getElementById("gForceX").textContent = gForceX.toFixed(2);
+      document.getElementById("gForceY").textContent = gForceY.toFixed(2);
+      document.getElementById("gForceZ").textContent = gForceZ.toFixed(2);
+    });
+  } else {
+    document.getElementById("unsupported").style.display = 'block';
+  }
+</script>
+</head>
+<body>
+<h1>Current G-Force Measurements</h1>
+<p>X-axis: <span id="gForceX">0</span> G</p>
+<p>Y-axis: <span id="gForceY">0</span> G</p>
+<p>Z-axis: <span id="gForceZ">0</span> G</p>
+<p id="unsupported" style="display:none;color:red;">DeviceMotionEvent is not supported by your browser.</p>
+</body>
+</html>
