@@ -7,10 +7,10 @@
     <title>G-Force Calculator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Chivo Mono', sans-serif;
             background-color: black;
             color: white;
             display: flex;
@@ -18,20 +18,24 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
+            margin: 0;
         }
 
         p {
-            margin: 10px;
+            margin: 0;
+            font-size: 7.5em;
+            text-align: center;
         }
     </style>
     <script>
         // Debounce function to delay updates
         function debounce(func, wait) {
             let timeout;
-            return function () {
+            return function() {
                 const context = this;
                 const args = arguments;
-                const later = function () {
+                const later = function() {
                     timeout = null;
                     func.apply(context, args);
                 };
@@ -47,10 +51,10 @@
                 const gForceY = acceleration.y / 9.8;
                 const gForceZ = acceleration.z / 9.8;
 
-                document.getElementById("gForceX").textContent = gForceX.toFixed(2);
-                document.getElementById("gForceY").textContent = gForceY.toFixed(2);
-                document.getElementById("gForceZ").textContent = gForceZ.toFixed(2);
-            }, 500));
+                const totalGForce = Math.sqrt(gForceX ** 2 + gForceY ** 2 + gForceZ ** 2);
+
+                document.getElementById("totalGForce").textContent = totalGForce.toFixed(1);
+            }, 500)); // Adjust the delay time (in milliseconds) as needed
         } else {
             document.getElementById("unsupported").style.display = 'block';
         }
@@ -58,9 +62,7 @@
 </head>
 
 <body>
-    <p>X-axis: <span id="gForceX">0</span> G</p>
-    <p>Y-axis: <span id="gForceY">0</span> G</p>
-    <p>Z-axis: <span id="gForceZ">0</span> G</p>
+    <p><span id="totalGForce">0</span> G</p>
     <p id="unsupported" style="display:none;color:red;">DeviceMotionEvent is not supported by your browser.</p>
 </body>
 
