@@ -1,3 +1,4 @@
+User
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,23 +30,8 @@
         }
     </style>
     <script>
-        // Debounce function to delay updates
-        function debounce(func, wait) {
-            let timeout;
-            return function() {
-                const context = this;
-                const args = arguments;
-                const later = function() {
-                    timeout = null;
-                    func.apply(context, args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
         if ("DeviceMotionEvent" in window) {
-            window.addEventListener("devicemotion", debounce((event) => {
+            window.addEventListener("devicemotion", (event) => {
                 const acceleration = event.accelerationIncludingGravity;
                 const gForceX = acceleration.x / 9.8;
                 const gForceY = acceleration.y / 9.8;
@@ -54,7 +40,8 @@
                 const totalGForce = Math.sqrt(gForceX ** 2 + gForceY ** 2 + gForceZ ** 2);
 
                 document.getElementById("totalGForce").textContent = totalGForce.toFixed(1);
-            }, 500)); // Adjust the delay time (in milliseconds) as needed
+                
+            });
         } else {
             document.getElementById("unsupported").style.display = 'block';
         }
